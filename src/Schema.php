@@ -5,7 +5,7 @@
  * Contains \Netzstrategen\MoCache\Schema.
  */
 
-namespace Netzstrategen\CoreStandards;
+namespace Netzstrategen\MoCache;
 
 /**
  * Generic plugin lifetime and maintenance functionality.
