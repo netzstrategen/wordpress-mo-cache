@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Netzstrategen\MoCache\Plugin.
- */
-
 namespace Netzstrategen\MoCache;
 
 /**
@@ -27,7 +22,7 @@ class Plugin {
   const L10N = self::PREFIX;
 
   /**
-   * @implements init
+   * @implements init.
    */
   public static function init() {
   }
@@ -48,7 +43,7 @@ class Plugin {
    *
    * @see load_textdomain()
    *
-   * @return TRUE
+   * @return bool TRUE
    *   Always return true to force the override.
    */
   public static function override_load_textdomain($override, $domain, $mofile) {
@@ -63,19 +58,16 @@ class Plugin {
       return TRUE;
     }
 
-    \do_action( 'load_textdomain', $domain, $mofile );
-
-    $mofile = \apply_filters( 'load_textdomain_mofile', $mofile, $domain );
-
-
+    \do_action('load_textdomain', $domain, $mofile);
+    $mofile = \apply_filters('load_textdomain_mofile', $mofile, $domain);
     $mo = new \MO();
-    $mo->import_from_file( $mofile );
+    $mo->import_from_file($mofile);
 
-    if ( isset( $l10n[$domain] ) )
-        $mo->merge_with( $l10n[$domain] );
+    if (isset($l10n[$domain])) {
+      $mo->merge_with($l10n[$domain]);
+    }
 
-    unset( $l10n_unloaded[ $domain ] );
-
+    unset($l10n_unloaded[$domain]);
     $l10n[$domain] = &$mo;
 
     \wp_cache_set($domain, $mo, __FUNCTION__, time() + 24 * 60 * 60);
