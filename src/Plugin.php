@@ -50,9 +50,10 @@ class Plugin {
     global $l10n, $l10n_unloaded;
     $l10n_unloaded = (array) $l10n_unloaded;
 
-    $l10n_domain = \wp_cache_get($domain, __FUNCTION__);
+    $current_filemtime = filemtime($mofile);
+    $cached_filemtime = wp_cache_get($domain, __FUNCTION__ . ':filemtime');
 
-    if ($l10n_domain !== FALSE) {
+    if ($current_filemtime === $cached_filemtime && FALSE !== $l10n_domain = \wp_cache_get($domain, __FUNCTION__)) {
       $l10n[$domain] = $l10n_domain;
 
       return TRUE;
@@ -77,7 +78,8 @@ class Plugin {
     unset($l10n_unloaded[$domain]);
     $l10n[$domain] = &$mo;
 
-    \wp_cache_set($domain, $mo, __FUNCTION__, time() + 24 * 60 * 60);
+    wp_cache_set($domain, $mo, __FUNCTION__);
+    wp_cache_set($domain, $current_filemtime, __FUNCTION__ . ':filemtime');
 
     return TRUE;
   }
