@@ -68,7 +68,7 @@ class Plugin {
     $l10n[$domain] = &$mo;
 
     wp_cache_set($cache_key, $current_filemtime, __FUNCTION__ . ':filemtime');
-    wp_cache_set($cache_key, $mo, __FUNCTION__);
+    wp_cache_set($cache_key, $mo, 'gettext');
 
     return TRUE;
   }
