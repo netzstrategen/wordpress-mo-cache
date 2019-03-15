@@ -50,7 +50,7 @@ class Plugin {
     $current_filemtime = filemtime($mofile);
     $cached_filemtime = wp_cache_get($cache_key . ':filemtime', 'gettext');
 
-    if ($current_filemtime === $cached_filemtime && FALSE !== $cached_l10n_domain = wp_cache_get($cache_key, __FUNCTION__)) {
+    if ($current_filemtime === $cached_filemtime && FALSE !== $cached_l10n_domain = wp_cache_get($cache_key, 'gettext')) {
       $l10n[$domain] = $cached_l10n_domain;
       return TRUE;
     }
