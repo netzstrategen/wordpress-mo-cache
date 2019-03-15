@@ -12,9 +12,3 @@ Check:
 
 For further documentation about object caching, check:
  - https://codex.wordpress.org/Class_Reference/WP_Object_Cache
-
-## How to update translations
-
-This plugin will cache your translations for 1 day. If you update any translation in your site you should clear your cache to force the new translations to be loaded:
- - You can flush your cache with your favorite [cache plugin](https://www.hostinger.com/tutorials/wordpress/how-to-clear-wordpress-cache).
- - Use `wp-cli` to do it more granular with [`wp cache delete`](https://developer.wordpress.org/cli/commands/cache/delete/) flushing only `override_load_textdomain` group.
