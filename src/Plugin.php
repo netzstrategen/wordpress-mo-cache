@@ -22,23 +22,10 @@ class Plugin {
   const L10N = self::PREFIX;
 
   /**
-   * @implements init.
-   */
-  public static function init() {
-  }
-
-  /**
-   * Loads the plugin textdomain.
-   */
-  public static function loadTextdomain() {
-    load_plugin_textdomain(static::L10N, FALSE, static::L10N . '/languages/');
-  }
-
-  /**
    * Overrides the textdomain loading to implement a object cache for it.
    *
    * This code is borrowed from wp-includes/l10n.php:load_textdomain().
-   * Unfortunately is not hookable enough so there is no chance to implement it.
+   * Unfortunately is not hookable enough so there is no chance to implement it
    * in a most proper way.
    *
    * @see load_textdomain()
