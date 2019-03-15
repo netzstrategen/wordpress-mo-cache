@@ -50,22 +50,20 @@ class Plugin {
     global $l10n, $l10n_unloaded;
     $l10n_unloaded = (array) $l10n_unloaded;
 
-    // Ensures the file name is the correct and that the file exists and it's
-    // readable. Otherwise skip cache usage.
-    \do_action('load_textdomain', $domain, $mofile);
-    $mofile = \apply_filters('load_textdomain_mofile', $mofile, $domain);
+    // The file can only be cached if it exists and is readable.
+    do_action('load_textdomain', $domain, $mofile);
+    $mofile = apply_filters('load_textdomain_mofile', $mofile, $domain);
 
     if (!is_readable($mofile)) {
       return FALSE;
     }
 
-    // Uses cached data only if the file's modification date is the same than
-    // the one cached.
+    // Only use the cached data if the file's modification date is still the same.
     $current_filemtime = filemtime($mofile);
     $cached_filemtime = wp_cache_get($domain, __FUNCTION__ . ':filemtime');
-    if ($current_filemtime === $cached_filemtime && FALSE !== $l10n_domain = \wp_cache_get($domain, __FUNCTION__)) {
-      $l10n[$domain] = $l10n_domain;
 
+    if ($current_filemtime === $cached_filemtime && FALSE !== $l10n_domain = wp_cache_get($domain, __FUNCTION__)) {
+      $l10n[$domain] = $l10n_domain;
       return TRUE;
     }
 
@@ -81,8 +79,8 @@ class Plugin {
     unset($l10n_unloaded[$domain]);
     $l10n[$domain] = &$mo;
 
-    wp_cache_set($domain, $mo, __FUNCTION__);
     wp_cache_set($domain, $current_filemtime, __FUNCTION__ . ':filemtime');
+    wp_cache_set($domain, $mo, __FUNCTION__);
 
     return TRUE;
   }
