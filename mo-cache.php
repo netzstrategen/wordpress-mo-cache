@@ -2,7 +2,7 @@
 
 /*
   Plugin Name: MO Cache
-  Version: 1.0
+  Version: 1.1
   Text Domain: mo-cache
   Description: Caches translation loading from MO files.
   Author: netzstrategen
